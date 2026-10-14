@@ -10,16 +10,22 @@ import com.rikai.backend.dto.request.intern.InternStatusUpdateRequest;
 import com.rikai.backend.dto.response.intern.InternAnalysisResponse;
 import com.rikai.backend.dto.response.intern.InternResponse;
 import com.rikai.backend.service.intern.IInternService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -187,5 +193,29 @@ public class InternController {
             @Valid @RequestBody InternStatusUpdateRequest request) {
         return ApiResponse.buildSuccessResponse(internService.updateInternStatus(id, request.getInternStatus()),
                 SuccessCode.UPDATE_INTERN_SUCCESSFUL);
+    }
+
+    @GetMapping("/export")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Export interns to CSV")
+    public ResponseEntity<StreamingResponseBody> exportInterns(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) LocalDate start_date,
+            @RequestParam(required = false) LocalDate end_date,
+            @RequestParam(required = false) Long position_id,
+            @RequestParam(required = false) UUID mentor_id) {
+
+        StreamingResponseBody stream = internService.exportInterns(
+                keyword, status, start_date, end_date, position_id, mentor_id
+        );
+
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = "interns_" + timestamp + ".csv";
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, "text/csv; charset=UTF-8")
+                .body(stream);
     }
 }

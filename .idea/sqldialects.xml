@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/backend/ddl/V1__insert_some_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V2__insert_some_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V3__alter_weekly-report_weekly_report_details.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V4__alter_evaluation_sessions_and_scores.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V5__alter_internship_batches_add_management_columns.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V6__drop_column_table_positions.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V7_insert_some_table_for_ai_agent.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/ddl/V8__add_ai_agent_tables.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>

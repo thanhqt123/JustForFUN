@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Repository
 public interface InternRepository extends JpaRepository<Intern, Long> {
-
+        @EntityGraph(attributePaths = {"position", "mentor"})
         @Query("""
                         SELECT i FROM Intern i
                         WHERE (:keyword IS NULL OR :keyword = '' OR LOWER(i.fullName) LIKE LOWER(CONCAT('%', :keyword, '%')))
