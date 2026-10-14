@@ -8,7 +8,9 @@ import com.rikai.backend.dto.response.intern.InternAnalysisResponse;
 import com.rikai.backend.dto.response.intern.InternResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -60,4 +62,6 @@ public interface IInternService {
     void permanentDeleteIntern(Long id);
 
     InternResponse updateInternStatus(Long id, InternStatus internStatus);
+
+    StreamingResponseBody exportInterns(String keyword, String internStatus, LocalDate startDate, LocalDate endDate, Long positionId, UUID mentorId) ;
 }
