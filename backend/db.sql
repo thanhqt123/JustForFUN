@@ -1,5 +1,4 @@
-create database  if not exists  intern_hub_db;
-Use intern_hub_db;
+
 
 -- =====================================================
 -- 1. ROLES TABLE
